@@ -9,6 +9,8 @@ app.post('/api/create-meeting', (req, res) => {
   // Extract meeting information from the request body
   const { title, description, startTime, endTime } = req.body;
 
+  console.log('Received meeting data:', { title, description, startTime, endTime }); // Add this line for logging
+
   // Add logic to interact with your database and create a meeting
 
   // Send a response back to the client

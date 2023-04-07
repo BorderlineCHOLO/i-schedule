@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Room</title>
+</head>
+<body>
+    <h1>Meeting Room</h1>
+    <p id="meeting-status"></p>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const meetingID = urlParams.get('id');
+
+        document.getElementById('meeting-status').innerText = `Meeting ID: ${meetingID}`;
+
+        
+        const meetingDateTime = new Date();
+        meetingDateTime.setMinutes(meetingDateTime.getMinutes() + 5); // Set meeting time 5 minutes ahead
+
+        checkMeetingStatus(meetingDateTime);
+
+        function checkMeetingStatus(meetingDateTime) {
+            const now = new Date();
+            const meetingStatusElement = document.getElementById('meeting-status');
+
+            if (now >= meetingDateTime) {
+                meetingStatusElement.innerText = 'The meeting has started.';
+            } else {
+                meetingStatusElement.innerText = 'The meeting has not started yet.';
+                const remainingTime = Math.floor((meetingDateTime - now) / 1000);
+                setTimeout(() => checkMeetingStatus(meetingDateTime), remainingTime * 1000);
+            }
+        }
+    </script>
+</body>
+</html>
